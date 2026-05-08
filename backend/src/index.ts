@@ -40,19 +40,27 @@ app.use(
   cors({
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
       if (!origin) return callback(null, true);
-      if (
+      
+      // Allow vercel.app domains, localhost, and configured CLIENT_URL
+      const isAllowed =
         allowedOrigins.has(origin) ||
         origin.endsWith('.vercel.app') ||
-        origin.endsWith('.vercel.sh')
-      ) {
+        origin.endsWith('.vercel.sh') ||
+        origin === 'https://cloudhome.vercel.app' ||
+        origin.includes('localhost');
+      
+      if (isAllowed) {
         return callback(null, true);
       }
+      
+      console.warn(`CORS rejected origin: ${origin}`);
       return callback(new Error('CORS policy does not allow this origin'), false);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 200,
+    maxAge: 86400,
   })
 );
 app.use(express.json());
