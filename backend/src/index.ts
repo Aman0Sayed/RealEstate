@@ -21,6 +21,10 @@ for (const envName of requiredEnv) {
 
 const app = express();
 
+// Trust the first proxy (Vercel) so Express and express-rate-limit
+// correctly read `X-Forwarded-For` and related proxy headers.
+app.set('trust proxy', 1);
+
 const localOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
