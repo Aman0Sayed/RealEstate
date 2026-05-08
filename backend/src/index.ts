@@ -74,4 +74,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/properties', propertyRoutes);
 app.use('/api/property-requests', propertyRequestRoutes);
 
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/properties', propertyRoutes);
+app.use('/property-requests', propertyRequestRoutes);
+
 export default app;
