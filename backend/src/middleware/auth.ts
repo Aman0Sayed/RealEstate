@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
+import { ParamsDictionary } from 'express-serve-static-core';
 
 interface JwtPayload {
   id: string;
   role: string;
 }
 
-export interface AuthedRequest<Body = any, Params = any> extends Request {
+export interface AuthedRequest<Body = any, Params extends ParamsDictionary = ParamsDictionary> extends Request<Params, any, Body> {
   user?: JwtPayload;
-  body: Body;
-  params: Params;
 }
 
-export const authMiddleware: RequestHandler = (req: AuthedRequest, res: Response, next: NextFunction) => {
+export const authMiddleware: RequestHandler = (req, res: Response, next: NextFunction) => {
+  const authedReq = req as AuthedRequest;
   const authHeader = req.headers.authorization as string | undefined;
   if (!authHeader) return res.status(401).json({ message: 'Missing auth header' });
 
@@ -27,7 +27,7 @@ export const authMiddleware: RequestHandler = (req: AuthedRequest, res: Response
 
   try {
     const payload = jwt.verify(token, secret) as JwtPayload;
-    req.user = payload;
+    authedReq.user = payload;
     next();
   } catch (err) {
     return res.status(401).json({ message: 'Invalid token' });
