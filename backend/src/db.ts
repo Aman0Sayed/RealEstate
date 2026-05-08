@@ -7,7 +7,7 @@ if (!MONGODB_URI) {
 }
 
 const MONGO_OPTIONS = {
-  dbName: 'Project_1',
+  dbName: 'cloudhome',
   family: 4,
   connectTimeoutMS: 10000,
   serverSelectionTimeoutMS: 10000,

@@ -69,9 +69,9 @@ app.get('/', (_req: Request, res: Response) =>
   res.json({ status: 'CloudHome API running' })
 );
 
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/properties', propertyRoutes);
-app.use('/property-requests', propertyRequestRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/properties', propertyRoutes);
+app.use('/api/property-requests', propertyRequestRoutes);
 
 export default app;
