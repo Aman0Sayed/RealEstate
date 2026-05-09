@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import { toast } from "@/hooks/use-toast";
 
 const API_BASE = import.meta.env.VITE_API_URL;
 if (!API_BASE) {
@@ -54,13 +54,12 @@ apiClient.interceptors.response.use(
           window.location.href = '/login';
         }
         
-        // Show toast if available
-        try {
-          // Assuming you have a toast system, adjust as needed
-          console.warn('Session expired: You have been logged out because your account was signed in from another session.');
-        } catch (e) {
-          // ignore
-        }
+        // Show toast notification
+        toast({
+          title: "Session Expired",
+          description: "You have been logged out because your account was signed in from another device or browser.",
+          variant: "destructive",
+        });
         
         return Promise.reject(new Error('Session expired: You have been logged out because your account was signed in from another session.'));
       }

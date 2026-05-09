@@ -55,8 +55,8 @@ router.post('/login', async (req: Request, res: Response) => {
 
     const token = jwt.sign({ id: user._id, role: user.role }, secret, { expiresIn: '7d' });
     
-    // Add session to active sessions
-    user.activeSessions.push({ token, createdAt: new Date() });
+    // Clear all existing sessions and add new session (single session model)
+    user.activeSessions = [{ token, createdAt: new Date() }];
     await user.save();
     
     res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
