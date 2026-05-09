@@ -39,7 +39,32 @@ apiClient.interceptors.response.use(
   (response) => response.data,
   (error: AxiosError) => {
     if (error.response && error.response.data && typeof error.response.data === 'object') {
-      const message = (error.response.data as any).message;
+      const data = error.response.data as any;
+      const message = data.message;
+      
+      // Handle session invalidation
+      if (data.code === 'SESSION_INVALID') {
+        // Clear auth state
+        setToken(null);
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // Redirect to login
+        if (typeof window !== 'undefined') {
+          window.location.href = '/login';
+        }
+        
+        // Show toast if available
+        try {
+          // Assuming you have a toast system, adjust as needed
+          console.warn('Session expired: You have been logged out because your account was signed in from another session.');
+        } catch (e) {
+          // ignore
+        }
+        
+        return Promise.reject(new Error('Session expired: You have been logged out because your account was signed in from another session.'));
+      }
+      
       return Promise.reject(new Error(message || error.message));
     }
     return Promise.reject(error);
@@ -79,6 +104,17 @@ export async function register(name: string, email: string, password: string, ro
   const body: any = { name, email, password, role };
   if (adminCode) body.adminCode = adminCode;
   return post('/auth/register', body);
+}
+
+export async function logout() {
+  try {
+    await post('/auth/logout');
+  } catch (e) {
+    // ignore errors on logout
+  }
+  setToken(null);
+  localStorage.clear();
+  sessionStorage.clear();
 }
 
 export async function fetchProfile() {

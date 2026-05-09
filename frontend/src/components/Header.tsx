@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Menu, X, User, LayoutDashboard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { getToken, setToken, fetchProfile } from '@/lib/api';
+import { getToken, setToken, fetchProfile, logout as apiLogout } from '@/lib/api';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -57,8 +57,8 @@ const Header = () => {
     return () => window.removeEventListener('pp_token_changed', onTokenChange as EventListener);
   }, []);
 
-  const logout = () => {
-    setToken(null);
+  const logout = async () => {
+    await apiLogout();
     setAuthed(false);
     setRole(null);
     setUserName(null);

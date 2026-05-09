@@ -8,6 +8,10 @@ export interface IUser extends Document {
   password: string;
   role: UserRole;
   phone?: string;
+  activeSessions: Array<{
+    token: string;
+    createdAt: Date;
+  }>;
 }
 
 const UserSchema: Schema = new Schema<IUser>({
@@ -15,7 +19,11 @@ const UserSchema: Schema = new Schema<IUser>({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
-  phone: { type: String }
+  phone: { type: String },
+  activeSessions: [{
+    token: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
+  }]
 }, { timestamps: true });
 
 export default mongoose.model<IUser>('User', UserSchema);

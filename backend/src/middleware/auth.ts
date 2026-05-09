@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 import { ParamsDictionary } from 'express-serve-static-core';
+import User from '../models/User';
 
 interface JwtPayload {
   id: string;
@@ -11,7 +12,7 @@ export interface AuthedRequest<Body = any, Params extends ParamsDictionary = Par
   user?: JwtPayload;
 }
 
-export const authMiddleware: RequestHandler = (req, res: Response, next: NextFunction) => {
+export const authMiddleware: RequestHandler = async (req, res: Response, next: NextFunction) => {
   const authedReq = req as AuthedRequest;
   const authHeader = req.headers.authorization as string | undefined;
   if (!authHeader) return res.status(401).json({ message: 'Missing auth header' });
@@ -27,6 +28,19 @@ export const authMiddleware: RequestHandler = (req, res: Response, next: NextFun
 
   try {
     const payload = jwt.verify(token, secret) as JwtPayload;
+    
+    // Check if session is active
+    const user = await User.findById(payload.id);
+    if (!user) return res.status(401).json({ message: 'User not found' });
+    
+    const isActiveSession = user.activeSessions.some(session => session.token === token);
+    if (!isActiveSession) {
+      return res.status(401).json({ 
+        message: 'Session expired or logged in from another device',
+        code: 'SESSION_INVALID'
+      });
+    }
+    
     authedReq.user = payload;
     next();
   } catch (err) {
