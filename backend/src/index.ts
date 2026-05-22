@@ -30,6 +30,8 @@ const localOrigins = [
   'http://127.0.0.1:5173',
   'http://localhost:4173',
   'http://127.0.0.1:4173',
+  'http://localhost:8080',
+  'http://127.0.0.1:8080',
 ];
 
 const allowedOrigins = new Set([
@@ -37,22 +39,22 @@ const allowedOrigins = new Set([
   ...localOrigins,
 ].filter(Boolean) as string[]);
 
-app.use(
-  helmet({ contentSecurityPolicy: false })
-);
-app.use(cors({
-  origin: [
-    "https://cloudhome.vercel.app",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:4173",
-    "http://127.0.0.1:4173"
-  ],
+app.use(helmet({ contentSecurityPolicy: false }));
+
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // allow requests with no origin (like mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+    if (([...allowedOrigins] as string[]).includes(origin)) return callback(null, true);
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
-}));
-app.options("*", cors());
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(
   rateLimit({
