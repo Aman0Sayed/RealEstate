@@ -1,10 +1,6 @@
-import { toast } from "@/hooks/use-toast";
 import axios, { AxiosError } from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL;
-if (!API_BASE) {
-  throw new Error('Missing required environment variable: VITE_API_URL');
-}
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 const apiClient = axios.create({
   baseURL: API_BASE.replace(/\/$/, ''),
@@ -14,57 +10,12 @@ const apiClient = axios.create({
   },
 });
 
-export function setToken(token: string | null) {
-  if (token) localStorage.setItem('pp_token', token);
-  else localStorage.removeItem('pp_token');
-  try {
-    window.dispatchEvent(new CustomEvent('pp_token_changed'));
-  } catch (e) {
-    // ignore in non-browser environments
-  }
-}
-
-export function getToken() {
-  return localStorage.getItem('pp_token');
-}
-
-apiClient.interceptors.request.use((config) => {
-  const token = getToken();
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
 apiClient.interceptors.response.use(
   (response) => response.data,
   (error: AxiosError) => {
     if (error.response && error.response.data && typeof error.response.data === 'object') {
       const data = error.response.data as any;
       const message = data.message;
-      
-      // Handle session invalidation
-      if (data.code === 'SESSION_INVALID') {
-        // Clear auth state
-        setToken(null);
-        localStorage.clear();
-        sessionStorage.clear();
-        
-        // Redirect to login
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login';
-        }
-        
-        // Show toast notification
-        toast({
-          title: "Session Expired",
-          description: "You have been logged out because your account was signed in from another device or browser.",
-          variant: "destructive",
-        });
-        
-        return Promise.reject(new Error('Session expired: You have been logged out because your account was signed in from another session.'));
-      }
-      
       return Promise.reject(new Error(message || error.message));
     }
     return Promise.reject(error);
@@ -95,30 +46,9 @@ export async function del(path: string) {
   return request('delete', path);
 }
 
-// Auth helper wrappers
-export async function login(email: string, password: string) {
-  return post('/auth/login', { email, password });
-}
-
-export async function register(name: string, email: string, password: string, role = 'looker', adminCode?: string) {
-  const body: any = { name, email, password, role };
-  if (adminCode) body.adminCode = adminCode;
-  return post('/auth/register', body);
-}
-
-export async function logout() {
-  try {
-    await post('/auth/logout');
-  } catch (e) {
-    // ignore errors on logout
-  }
-  setToken(null);
-  localStorage.clear();
-  sessionStorage.clear();
-}
-
-export async function fetchProfile() {
-  return get('/users/me');
+// Contact
+export async function submitContact(data: { name: string; email: string; phone: string; message: string }) {
+  return post('/contact', data);
 }
 
 // Properties
@@ -128,25 +58,4 @@ export async function listProperties() {
 
 export async function getProperty(id: string) {
   return get(`/properties/${id}`);
-}
-
-export async function createProperty(data: any) {
-  return post('/properties', data);
-}
-
-export async function updateProperty(id: string, data: any) {
-  return put(`/properties/${id}`, data);
-}
-
-export async function deleteProperty(id: string) {
-  return del(`/properties/${id}`);
-}
-
-// Admin / Users
-export async function listUsers() {
-  return get('/users');
-}
-
-export async function deleteUser(id: string) {
-  return del(`/users/${id}`);
 }
