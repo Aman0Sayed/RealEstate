@@ -26,7 +26,7 @@ const Index = () => {
       beds: 0,
       baths: 0,
       sqft: 5000,
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+      image: "/images/image1.jfif",
     },
     {
       id: 2,
@@ -36,7 +36,7 @@ const Index = () => {
       beds: 0,
       baths: 0,
       sqft: 8000,
-      image: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&h=600&fit=crop",
+      image: "/images/image2.jfif",
     },
     {
       id: 3,
@@ -46,7 +46,7 @@ const Index = () => {
       beds: 0,
       baths: 0,
       sqft: 6000,
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+      image: "/images/image3.jfif",
     },
     {
       id: 4,
@@ -56,7 +56,7 @@ const Index = () => {
       beds: 0,
       baths: 0,
       sqft: 12000,
-      image: "https://images.unsplash.com/photo-1500382017468-7049fae79eef?w=800&h=600&fit=crop",
+      image: "/images/image4.jfif",
     },
     {
       id: 5,
@@ -66,7 +66,7 @@ const Index = () => {
       beds: 0,
       baths: 0,
       sqft: 4500,
-      image: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&h=600&fit=crop",
+      image: "/images/image5.jfif",
     },
     {
       id: 6,
@@ -76,7 +76,7 @@ const Index = () => {
       beds: 0,
       baths: 0,
       sqft: 3500,
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+      image: "/images/image6.jfif",
     }
   ];
 
@@ -221,7 +221,7 @@ const Index = () => {
             </div>
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop"
+                src="/images/image13.jfif"
                 alt="Burundi landscape"
                 className="rounded-lg"
               />

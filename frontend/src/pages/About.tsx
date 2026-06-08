@@ -36,17 +36,17 @@ const About = () => {
     {
       name: "John Smith",
       title: "Owner & Lead Agent",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1500382017468-f049863256f0?w=400&h=400&fit=crop"
     },
     {
       name: "Sarah Johnson",
       title: "Senior Agent",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop"
     },
     {
       name: "Mike Davis",
       title: "Property Consultant",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1500595046891-2d5b0bb53d17?w=400&h=400&fit=crop"
     }
   ];
 
@@ -85,7 +85,7 @@ const About = () => {
             </div>
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop"
+                src="https://images.unsplash.com/photo-1500382017468-f049863256f0?w=600&h=400&fit=crop"
                 alt="Our Mission"
                 className="rounded-lg"
               />

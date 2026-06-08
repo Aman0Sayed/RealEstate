@@ -71,7 +71,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 5000,
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+    image: "/images/image1.jfif",
     description: "Premium empty land plot in Bujumbura. Ideal for residential or commercial development. Prime location.",
     type: "Land Plot"
   },
@@ -83,7 +83,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 8000,
-    image: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&h=600&fit=crop",
+    image: "/images/image2.jfif",
     description: "Large commercial land plot in Gitega capital city. Perfect for business development and investment.",
     type: "Land Plot"
   },
@@ -95,7 +95,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 6000,
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+    image: "/images/image3.jfif",
     description: "Beautiful residential land plot in Ngozi province. Peaceful location with great potential.",
     type: "Land Plot"
   },
@@ -107,7 +107,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 12000,
-    image: "https://images.unsplash.com/photo-1500382017468-7049fae79eef?w=800&h=600&fit=crop",
+    image: "/images/image4.jfif",
     description: "Exclusive waterfront land plot near Lake Tanganyika in Bujumbura. Premium investment opportunity.",
     type: "Land Plot"
   },
@@ -119,7 +119,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 4500,
-    image: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&h=600&fit=crop",
+    image: "/images/image5.jfif",
     description: "Great land plot in Muramvya for development projects. Strategic location with road access.",
     type: "Land Plot"
   },
@@ -131,7 +131,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 3500,
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+    image: "/images/image6.jfif",
     description: "Prime land in Gitega's central business district. Excellent for retail or office development.",
     type: "Land Plot"
   },
@@ -143,7 +143,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 7500,
-    image: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&h=600&fit=crop",
+    image: "/images/image7.jfif",
     description: "Fertile agricultural land plot in Ngozi. Perfect for farming and cultivation projects.",
     type: "Land Plot"
   },
@@ -155,7 +155,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 5500,
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+    image: "/images/image8.jfif",
     description: "Strategic investment land in downtown Bujumbura. High-value property with excellent appreciation potential.",
     type: "Land Plot"
   },
@@ -167,7 +167,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 9000,
-    image: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&h=600&fit=crop",
+    image: "/images/image9.jfif",
     description: "Large industrial land plot in Gitega industrial zone. Suitable for manufacturing and production facilities.",
     type: "Land Plot"
   },
@@ -179,7 +179,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 6800,
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+    image: "/images/image10.jfif",
     description: "Beautiful scenic land plot on Muramvya Heights. Stunning views and serene environment for development.",
     type: "Land Plot"
   },
@@ -191,7 +191,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 7000,
-    image: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&h=600&fit=crop",
+    image: "/images/image11.jfif",
     description: "Versatile mixed-use land plot in Bujumbura. Ideal for residential, commercial, or retail development.",
     type: "Land Plot"
   },
@@ -203,7 +203,7 @@ const properties = [
     beds: 0,
     baths: 0,
     sqft: 8500,
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=800&h=600&fit=crop",
+    image: "/images/image12.jfif",
     description: "Large residential community land plot in Ngozi. Perfect for planned residential development and housing projects.",
     type: "Land Plot"
   }
