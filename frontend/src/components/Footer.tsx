@@ -1,13 +1,6 @@
 
 import React from 'react';
-import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Mail, 
-  Phone, 
-  MapPin
-} from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -26,17 +19,6 @@ const Footer = () => {
             <p className="text-gray-300 text-sm leading-relaxed">
               STAR Properties is your premier destination for land investment opportunities in Burundi. We offer carefully selected plots across the country for development and investment.
             </p>
-            <div className="flex space-x-3">
-              <a href="#" className="p-2 border border-gray-600 rounded-lg hover:bg-white hover:text-[#1a472a] transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="p-2 border border-gray-600 rounded-lg hover:bg-white hover:text-[#1a472a] transition-colors">
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a href="#" className="p-2 border border-gray-600 rounded-lg hover:bg-white hover:text-[#1a472a] transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -65,10 +47,6 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Contact Info</h4>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-gray-400" />
-                <a href="tel:+257223456789" className="text-gray-300 hover:text-white text-sm">+257 22 345 6789</a>
-              </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-gray-400" />
                 <a href="mailto:info@burundiproperties.bi" className="text-gray-300 hover:text-white text-sm">info@burundiproperties.bi</a>

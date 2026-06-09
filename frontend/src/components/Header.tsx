@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Phone, Mail } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -9,20 +9,6 @@ const Header = () => {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top bar with contact info */}
-        <div className="hidden md:flex items-center justify-end h-10 text-sm border-b border-gray-100">
-          <div className="flex items-center space-x-6">
-            <a href="tel:+1234567890" className="flex items-center space-x-2 text-gray-700 hover:text-[#001f3f]">
-              <Phone size={16} />
-              <span>(123) 456-7890</span>
-            </a>
-            <a href="mailto:info@realestate.com" className="flex items-center space-x-2 text-gray-700 hover:text-[#001f3f]">
-              <Mail size={16} />
-              <span>info@realestate.com</span>
-            </a>
-          </div>
-        </div>
-
         {/* Main header */}
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -63,16 +49,6 @@ const Header = () => {
               Contact
             </button>
           </nav>
-
-          {/* Desktop CTA Button */}
-          <div className="hidden md:flex">
-            <button
-              onClick={() => navigate('/contact')}
-              className="px-6 py-2 bg-[#1a472a] text-white text-sm font-medium rounded-lg hover:bg-[#2d6a44] transition-colors"
-            >
-              Get in Touch
-            </button>
-          </div>
 
           {/* Mobile menu button */}
           <button
@@ -122,15 +98,6 @@ const Header = () => {
                 className="text-left text-gray-700 hover:text-[#1a472a] text-sm font-medium transition-colors py-2"
               >
                 Contact
-              </button>
-              <button
-                onClick={() => {
-                  navigate('/contact');
-                  setIsMenuOpen(false);
-                }}
-                className="px-6 py-2 bg-[#1a472a] text-white text-sm font-medium rounded-lg hover:bg-[#2d6a44] transition-colors w-full mt-2"
-              >
-                Get in Touch
               </button>
             </nav>
           </div>

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Square, ArrowLeft, Phone, Mail } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { MapPin, Square, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { formatPriceBIF } from "@/lib/utils";
@@ -25,6 +28,10 @@ const PropertyDetail = () => {
   const navigate = useNavigate();
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [contactMode, setContactMode] = useState<'get-in-touch' | 'viewing' | 'contact'>('get-in-touch');
+  const [senderEmail, setSenderEmail] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (!id) {
@@ -62,6 +69,29 @@ const PropertyDetail = () => {
   );
 
   const formatPrice = formatPriceBIF;
+
+  const openInquiryForm = (mode: 'get-in-touch' | 'viewing' | 'contact') => {
+    setContactMode(mode);
+    setIsInquiryOpen(true);
+  };
+
+  const handleInquirySubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!senderEmail.trim() || !message.trim()) return;
+
+    window.alert('Sent');
+    setSenderEmail('');
+    setMessage('');
+    setIsInquiryOpen(false);
+  };
+
+  const inquiryTitle =
+    contactMode === 'viewing'
+      ? 'Schedule a Viewing'
+      : contactMode === 'contact'
+        ? 'Contact Us'
+        : 'Get in Touch';
 
   return (
     <div className="min-h-screen bg-white">
@@ -136,36 +166,78 @@ const PropertyDetail = () => {
                   </div>
                 )}
 
-                <Button
-                  onClick={() => navigate('/contact')}
-                  className="w-full mb-3 bg-[#1a472a] hover:bg-[#2d6a44] text-white py-3 text-base font-medium"
-                >
-                  Schedule a Viewing
-                </Button>
+                <div className="space-y-3">
+                  <Button
+                    onClick={() => openInquiryForm('get-in-touch')}
+                    className="w-full bg-[#1a472a] hover:bg-[#2d6a44] text-white py-3 text-base font-medium"
+                  >
+                    Get in Touch
+                  </Button>
 
-                {/* Contact Information */}
-                <Card className="mt-6 border-gray-200">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-4 text-gray-900">Contact Us</h3>
-                    
-                    <div className="space-y-4">
-                      <a href="tel:+257223456789" className="flex items-center text-gray-600 hover:text-[#1a472a] transition-colors">
-                        <Phone className="w-5 h-5 mr-3 text-[#1a472a]" />
-                        <span>(123) 456-7890</span>
-                      </a>
-                      
-                      <a href="mailto:info@burundiproperties.bi" className="flex items-center text-gray-600 hover:text-[#1a472a] transition-colors">
-                        <Mail className="w-5 h-5 mr-3 text-[#1a472a]" />
-                        <span>info@realestate.com</span>
-                      </a>
-                    </div>
-                  </CardContent>
-                </Card>
+                  <Button
+                    onClick={() => openInquiryForm('viewing')}
+                    className="w-full bg-[#1a472a] hover:bg-[#2d6a44] text-white py-3 text-base font-medium"
+                  >
+                    Schedule a Viewing
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    onClick={() => openInquiryForm('contact')}
+                    className="w-full border-[#1a472a] text-[#1a472a] hover:bg-[#1a472a] hover:text-white py-3 text-base font-medium"
+                  >
+                    Contact Us
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
       </div>
+
+      <Dialog open={isInquiryOpen} onOpenChange={setIsInquiryOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>{inquiryTitle}</DialogTitle>
+            <DialogDescription>
+              Share your email and a short note for this demo property inquiry.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleInquirySubmit} className="space-y-4 py-2">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">Sender email</label>
+              <Input
+                type="email"
+                value={senderEmail}
+                onChange={(event) => setSenderEmail(event.target.value)}
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">Message</label>
+              <Textarea
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                placeholder={`I would like to learn more about ${property.title}.`}
+                rows={5}
+                required
+              />
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setIsInquiryOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" className="bg-[#1a472a] hover:bg-[#2d6a44] text-white">
+                Send
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>

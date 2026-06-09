@@ -85,8 +85,8 @@ const About = () => {
             </div>
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1500382017468-f049863256f0?w=600&h=400&fit=crop"
-                alt="Our Mission"
+                src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=600&h=400&fit=crop"
+                alt="Real estate property mission"
                 className="rounded-lg"
               />
             </div>
@@ -110,31 +110,6 @@ const About = () => {
                   </div>
                   <h3 className="text-lg font-semibold mb-2 text-gray-900">{feature.title}</h3>
                   <p className="text-gray-600 text-sm">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-16 text-[#001f3f] text-center">
-            Meet Our Team
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <Card key={index} className="overflow-hidden">
-                <img 
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-64 object-cover"
-                />
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{member.name}</h3>
-                  <p className="text-gray-600">{member.title}</p>
                 </CardContent>
               </Card>
             ))}

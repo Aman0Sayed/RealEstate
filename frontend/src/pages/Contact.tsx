@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Mail, MapPin, Clock } from "lucide-react";
 import { submitContact } from "@/lib/api";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -62,19 +62,6 @@ const Contact = () => {
               <h2 className="text-3xl font-bold mb-8 text-[#1a472a]">Get in Touch</h2>
               
               <div className="space-y-6">
-                {/* Phone */}
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-[#1a472a] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                    <a href="tel:+257223456789" className="text-gray-600 hover:text-[#1a472a]">
-                      +257 22 345 6789
-                    </a>
-                  </div>
-                </div>
-
                 {/* Email */}
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-[#1a472a] rounded-lg flex items-center justify-center flex-shrink-0">
