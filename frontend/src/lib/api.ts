@@ -1,9 +1,12 @@
 import axios, { AxiosError } from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+const configuredApiBase = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+const API_BASE = configuredApiBase.endsWith('/api')
+  ? configuredApiBase.slice(0, -4)
+  : configuredApiBase;
 
 const apiClient = axios.create({
-  baseURL: API_BASE.replace(/\/$/, ''),
+  baseURL: API_BASE || undefined,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -48,14 +51,14 @@ export async function del(path: string) {
 
 // Contact
 export async function submitContact(data: { name: string; email: string; phone: string; message: string }) {
-  return post('/contact', data);
+  return post('/api/contact', data);
 }
 
 // Properties
 export async function listProperties() {
-  return get('/properties');
+  return get('/api/properties');
 }
 
 export async function getProperty(id: string) {
-  return get(`/properties/${id}`);
+  return get(`/api/properties/${id}`);
 }

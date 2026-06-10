@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { formatPriceBIF } from "@/lib/utils";
+import { listProperties } from "@/lib/api";
 
 interface Property {
   id: number;
@@ -29,18 +30,29 @@ const Properties = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch properties from backend
-    fetch('http://localhost:4000/api/properties')
-      .then(res => res.json())
-      .then(data => {
+    let isMounted = true;
+
+    const loadProperties = async () => {
+      try {
+        const data = await listProperties();
+        if (!isMounted) return;
+
         setProperties(data);
         setFilteredProperties(data);
-        setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Error fetching properties:', err);
-        setLoading(false);
-      });
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadProperties();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {

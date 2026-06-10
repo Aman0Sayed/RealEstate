@@ -9,6 +9,7 @@ import { MapPin, Square, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { formatPriceBIF } from "@/lib/utils";
+import { getProperty } from "@/lib/api";
 
 interface Property {
   id: number;
@@ -39,17 +40,28 @@ const PropertyDetail = () => {
       return;
     }
 
-    // Fetch property from backend
-    fetch(`http://localhost:4000/api/properties/${id}`)
-      .then(res => res.json())
-      .then(data => {
+    let isMounted = true;
+
+    const loadProperty = async () => {
+      try {
+        const data = await getProperty(id);
+        if (!isMounted) return;
+
         setProperty(data);
-        setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Error fetching property:', err);
-        setLoading(false);
-      });
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadProperty();
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
   if (loading) return (
