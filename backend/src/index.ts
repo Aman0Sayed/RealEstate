@@ -35,13 +35,19 @@ const allowedOrigins = new Set([
   ...localOrigins,
 ].filter(Boolean) as string[]);
 
+const isAllowedOrigin = (origin: string | undefined) => {
+  if (!origin) return true;
+
+  if (allowedOrigins.has(origin)) return true;
+
+  return /^(https:\/\/.*\.vercel\.app|https:\/\/cloudhome\.vercel\.app|http:\/\/localhost(:\d+)?|http:\/\/127\.0\.0\.1(:\d+)?)$/i.test(origin);
+};
+
 app.use(helmet({ contentSecurityPolicy: false }));
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    // allow requests with no origin (like mobile apps, curl, server-to-server)
-    if (!origin) return callback(null, true);
-    if (([...allowedOrigins] as string[]).includes(origin)) return callback(null, true);
+    if (isAllowedOrigin(origin)) return callback(null, true);
     return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
